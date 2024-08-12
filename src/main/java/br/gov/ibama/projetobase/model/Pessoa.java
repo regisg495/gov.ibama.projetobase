@@ -3,13 +3,9 @@ package br.gov.ibama.projetobase.model;
 import jakarta.persistence.*;
 import lombok.*;
 
-@Getter
-@Setter
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
+@Data
 @Entity
-@Table(name = "pessoa")
+@Table(name = "tb_pessoa")
 public class Pessoa {
 
     @Id
@@ -17,10 +13,10 @@ public class Pessoa {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "nu_cpf")
+    @Column(name = "ds_cpf")
     private String cpf;
 
-    @Column(name = "gen_pessoa")
+    @Column(name = "ds_genero")
     private char genero;
 
 }
