@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -31,37 +30,30 @@ public class PessoaServiceImpl implements PessoaService {
 
     @Override
     public List<PessoaDTO> getAll() {
-        Iterable<Pessoa> pessoas = pessoaRepository.findAll();
         List<PessoaDTO> pessoaDTO = new ArrayList<>();
-        pessoas.forEach(e -> pessoaDTO.add(convertToDto(e)));
-
+         pessoaRepository.findAll()
+                .forEach(e -> pessoaDTO.add(convertToDto(e)));
         return pessoaDTO;
     }
 
     private PessoaDTO convertToDto(Pessoa pessoa) {
-        PessoaDTO pessoaDTO = modelMapper.map(pessoa, PessoaDTO.class);
-        return pessoaDTO;
+        return modelMapper.map(pessoa, PessoaDTO.class);
     }
 
     private Pessoa convertToEntity(PessoaDTO pessoaDTO)   {
-        Pessoa pessoa = modelMapper.map(pessoaDTO, Pessoa.class);
-        return pessoa;
+        return modelMapper.map(pessoaDTO, Pessoa.class);
     }
 
     @Transactional
     @Override
     public PessoaDTO add(PessoaDTO pessoaDTO) {
-        Pessoa pessoa = convertToEntity(pessoaDTO);
-        pessoaRepository.save(pessoa);
-        return pessoaDTO;
+        return convertToDto(pessoaRepository.save(convertToEntity(pessoaDTO)));
     }
 
     @Transactional
     @Override
     public PessoaDTO update(PessoaDTO pessoaDTO) {
-        Pessoa pessoa = convertToEntity(pessoaDTO);
-        pessoaRepository.save(pessoa);
-        return convertToDto(pessoa);
+        return convertToDto(pessoaRepository.save(convertToEntity(pessoaDTO)));
     }
 
     @Override
