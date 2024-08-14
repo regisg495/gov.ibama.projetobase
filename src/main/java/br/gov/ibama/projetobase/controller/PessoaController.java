@@ -26,7 +26,7 @@ public class PessoaController {
     }
 
     @PostMapping
-    public ResponseEntity<PessoaDTO> post(PessoaDTO pessoaDTO) {
+    public ResponseEntity<PessoaDTO> post(@RequestBody PessoaDTO pessoaDTO) {
         PessoaDTO pessoaDTONew = pessoaService.add(pessoaDTO);
         return ResponseEntity.ok(pessoaDTONew);
     }
@@ -37,8 +37,9 @@ public class PessoaController {
         return ResponseEntity.ok(pessoaDTOUpdated);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable(value = "id") Long id) {
+        pessoaService.delete(id);
         return ResponseEntity.ok().build();
     }
 }
