@@ -1,7 +1,7 @@
 spring:
     config:
         activate:
-            on-profile: prod
+            on-profile: dev
 
 
     datasource:
@@ -17,3 +17,5 @@ spring:
 
     liquibase:
         change-log: classpath:config/liquibase/changelog-master.xml
+
+

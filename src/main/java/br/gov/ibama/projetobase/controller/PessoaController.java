@@ -2,6 +2,8 @@ package br.gov.ibama.projetobase.controller;
 
 import br.gov.ibama.projetobase.dto.PessoaDTO;
 import br.gov.ibama.projetobase.service.impl.PessoaServiceImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +13,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/pessoa")
 public class PessoaController {
+
+    private static final Logger logger = LoggerFactory.getLogger(PessoaController.class);
 
     @Autowired
     private PessoaServiceImpl pessoaService;
@@ -42,4 +46,19 @@ public class PessoaController {
         pessoaService.delete(id);
         return ResponseEntity.ok().build();
     }
+
+    /**
+     * Este´é um exemplo de logs
+     * @return
+     */
+    @GetMapping("/exemplo/log")
+    public ResponseEntity<List<PessoaDTO>> getLogExample() {
+        logger.debug("Debug level - Hello Logback");
+        logger.info("Info level - Hello Logback");
+        logger.error("Error level - Hello Logback");
+        logger.error("Error level - Hello Logback {}", "sua variavel aqui");
+
+        return ResponseEntity.ok(pessoaService.getAll());
+    }
+
 }
